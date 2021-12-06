@@ -3,6 +3,8 @@ import { Layout } from "../../components/Layout";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import { getAll } from "../../services/projets";
+import { isEmpty } from "../../components/utils";
+
 const icon = L.icon({
 	iconUrl:
 		"https://cdn4.iconfinder.com/data/icons/basic-ui-pack-flat-s94-1/64/Basic_UI_Icon_Pack_-_Flat_map_pointer-512.png",
@@ -22,7 +24,6 @@ const MapPage = () => {
 
 	useEffect(() => {
 		getAll().then((res) => {
-			console.log(res);
 			setProjets(res);
 		});
 	}, []);
@@ -163,19 +164,20 @@ const MapPage = () => {
 						)}
 					</div>
 				</div>
-				{projets && (
-					<MapContainer
-						center={position}
-						zoom={13}
-						scrollWheelZoom={false}
-						style={{ height: "87vh", zIndex: 1 }}
-					>
-						<TileLayer
-							attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-							url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-						/>
-						{projets.length > 0
-							? projets.map((projet) => (
+				<MapContainer
+					center={position}
+					zoom={13}
+					scrollWheelZoom={false}
+					style={{ height: "87vh", zIndex: 1 }}
+				>
+					<TileLayer
+						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+					/>
+					{!isEmpty(projets) ? (
+						<>
+							{projets.length > 0 ? (
+								projets.map((projet) => (
 									<Marker
 										position={[projet.latProjet, projet.lngProjet]}
 										icon={icon}
@@ -195,30 +197,31 @@ const MapPage = () => {
 											</div>
 										</Popup>
 									</Marker>
-							  ))
-							: projets && (
-									<Marker
-										position={[projets.latProjet, projets.lngProjet]}
-										icon={icon}
-									>
-										<Popup>
-											<div>
-												<img
-													src={"data:image/png;base64," + projets.photoProjet}
-													alt="image"
-													style={{ width: 100 }}
-												/>
-												<h3>Nom : {projets.nomProjet}</h3>
-												<br />
-												<h5>Numéro : {projets.numeroProjet}</h5>
-												<br />
-												<h5>Type : {projets.typeProjet}</h5>
-											</div>
-										</Popup>
-									</Marker>
-							  )}
-					</MapContainer>
-				)}
+								))
+							) : (
+								<Marker
+									position={[projets.latProjet, projets.lngProjet]}
+									icon={icon}
+								>
+									<Popup>
+										<div>
+											<img
+												src={"data:image/png;base64," + projets.photoProjet}
+												alt="image"
+												style={{ width: 100 }}
+											/>
+											<h3>Nom : {projets.nomProjet}</h3>
+											<br />
+											<h5>Numéro : {projets.numeroProjet}</h5>
+											<br />
+											<h5>Type : {projets.typeProjet}</h5>
+										</div>
+									</Popup>
+								</Marker>
+							)}
+						</>
+					) : null}
+				</MapContainer>
 			</div>
 		</Layout>
 	);

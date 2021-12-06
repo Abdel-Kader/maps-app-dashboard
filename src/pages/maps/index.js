@@ -42,10 +42,7 @@ const MapPage = () => {
 			setInput("");
 		}
 	};
-	if (projets != null) {
-		console.log(projets.length);
-		console.log(projets);
-	} else console.log("projet null");
+
 	return (
 		<Layout>
 			<div className="w-full sm:px-6 md:pl-56">
@@ -166,60 +163,62 @@ const MapPage = () => {
 						)}
 					</div>
 				</div>
-				<MapContainer
-					center={position}
-					zoom={13}
-					scrollWheelZoom={false}
-					style={{ height: "87vh", zIndex: 1 }}
-				>
-					<TileLayer
-						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-					/>
-					{projets && projets.length > 0
-						? projets.map((projet) => (
-								<Marker
-									position={[projet.latProjet, projet.lngProjet]}
-									icon={icon}
-								>
-									<Popup>
-										<div>
-											<img
-												src={"data:image/png;base64," + projet.photoProjet}
-												alt="image"
-												style={{ width: 100 }}
-											/>
-											<h3>Nom : {projet.nomProjet}</h3>
-											<br />
-											<h5>Numéro : {projet.numeroProjet}</h5>
-											<br />
-											<h5>Type : {projet.typeProjet}</h5>
-										</div>
-									</Popup>
-								</Marker>
-						  ))
-						: projets && (
-								<Marker
-									position={[projets.latProjet, projets.lngProjet]}
-									icon={icon}
-								>
-									<Popup>
-										<div>
-											<img
-												src={"data:image/png;base64," + projets.photoProjet}
-												alt="image"
-												style={{ width: 100 }}
-											/>
-											<h3>Nom : {projets.nomProjet}</h3>
-											<br />
-											<h5>Numéro : {projets.numeroProjet}</h5>
-											<br />
-											<h5>Type : {projets.typeProjet}</h5>
-										</div>
-									</Popup>
-								</Marker>
-						  )}
-				</MapContainer>
+				{projets && (
+					<MapContainer
+						center={position}
+						zoom={13}
+						scrollWheelZoom={false}
+						style={{ height: "87vh", zIndex: 1 }}
+					>
+						<TileLayer
+							attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+							url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+						/>
+						{projets.length > 0
+							? projets.map((projet) => (
+									<Marker
+										position={[projet.latProjet, projet.lngProjet]}
+										icon={icon}
+									>
+										<Popup>
+											<div>
+												<img
+													src={"data:image/png;base64," + projet.photoProjet}
+													alt="image"
+													style={{ width: 100 }}
+												/>
+												<h3>Nom : {projet.nomProjet}</h3>
+												<br />
+												<h5>Numéro : {projet.numeroProjet}</h5>
+												<br />
+												<h5>Type : {projet.typeProjet}</h5>
+											</div>
+										</Popup>
+									</Marker>
+							  ))
+							: projets && (
+									<Marker
+										position={[projets.latProjet, projets.lngProjet]}
+										icon={icon}
+									>
+										<Popup>
+											<div>
+												<img
+													src={"data:image/png;base64," + projets.photoProjet}
+													alt="image"
+													style={{ width: 100 }}
+												/>
+												<h3>Nom : {projets.nomProjet}</h3>
+												<br />
+												<h5>Numéro : {projets.numeroProjet}</h5>
+												<br />
+												<h5>Type : {projets.typeProjet}</h5>
+											</div>
+										</Popup>
+									</Marker>
+							  )}
+					</MapContainer>
+				)}
 			</div>
 		</Layout>
 	);

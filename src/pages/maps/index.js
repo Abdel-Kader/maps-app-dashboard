@@ -183,17 +183,41 @@ const MapPage = () => {
 										icon={icon}
 									>
 										<Popup>
-											<div>
+											<div className="text-sm">
 												<img
 													src={"data:image/png;base64," + projet.photoProjet}
 													alt="image"
-													style={{ width: 100 }}
+													className="object-fill h-48 w-96 mb-4"
+													style={{ maxWidth: "226px" }}
 												/>
-												<h3>Nom : {projet.nomProjet}</h3>
+												<h3 className="flex justify-between">
+													<span className="font-semibold underline">
+														Numéro du projet :{" "}
+													</span>
+													{projet.numeroProjet}
+												</h3>
 												<br />
-												<h5>Numéro : {projet.numeroProjet}</h5>
+												<h3 className="flex justify-between">
+													<span className="font-semibold underline">
+														Nom du projet :{" "}
+													</span>{" "}
+													{projet.nomProjet}
+												</h3>
 												<br />
-												<h5>Type : {projet.typeProjet}</h5>
+												<h3 className="flex justify-between">
+													<span className="font-semibold underline">
+														Type du projet :{" "}
+													</span>
+													{projet.typeProjet}
+												</h3>
+												<br />
+												<h3 className="flex justify-between">
+													<span className="font-semibold underline">
+														date d'exécution :{" "}
+													</span>
+													{projet.dateExecution}
+												</h3>
+												<br />
 											</div>
 										</Popup>
 									</Marker>

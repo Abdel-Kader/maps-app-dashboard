@@ -25,3 +25,15 @@ export const getAll = () => {
 			console.log(error);
 		});
 };
+
+export const deleteProjet = (id) => {
+	return axios
+		.delete(API_URL + "projets/" + id)
+		.then((res) => {
+			console.log(res);
+			return res.data;
+		})
+		.catch((err) => {
+			console.log("errr", err);
+		});
+};

@@ -29,3 +29,16 @@ export const getAll = () => {
 			console.log(error);
 		});
 };
+
+export const deleteUser = (id) => {
+	return axios
+		.delete(API_URL + "users/" + id)
+		.then((res) => {
+			console.log(res);
+			return res.data;
+		})
+		.catch((err) => {
+			console.log("errr", err);
+			return err.response.data;
+		});
+};
